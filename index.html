@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>endreborton</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #343a40; 
+            color: #f8f9fa; 
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .content-wrapper {
+            background-color: #212529; 
+            padding: 30px 40px;
+            border: 5px solid #000000; 
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.7),
+                        0 0 20px rgba(0,0,0,0.5);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        #prison-gif-container {
+            width: 100%;
+            max-width: 480px; 
+            margin: 0 auto 25px auto; 
+            background-color: #495057; 
+            border: 3px solid #000; 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            min-height: 200px; 
+        }
+
+        #prison-gif {
+            max-width: 100%; 
+            max-height: 300px; 
+            height: auto; 
+            display: block; 
+            object-fit: contain; 
+        }
+
+        h1 { 
+            margin-top: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #main-title {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 3.0em;
+            color: #adb5bd;
+            text-shadow: 2px 2px 0px #000,
+                         -2px -2px 0px #000,
+                         2px -2px 0px #000,
+                         -2px 2px 0px #000;
+            margin-bottom: 20px;
+        }
+
+        #timer-sentence {
+            font-size: 1.5em;
+            color: #ced4da;
+            font-weight: normal;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .timer-values span {
+            font-weight: bold;
+            color: #ffc107;
+            background-color: #495057;
+            padding: 5px 10px;
+            margin: 0 2px;
+            border-radius: 0;
+            border: 1px solid #000;
+            display: inline-block;
+        }
+
+
+        @media (max-width: 768px) {
+            #main-title {
+                font-size: 2.8em;
+            }
+            #timer-sentence {
+                font-size: 1.2em;
+            }
+            .content-wrapper {
+                padding: 20px;
+            }
+            #prison-gif-container {
+                max-width: 90%;
+                min-height: 150px;
+                margin-bottom: 20px;
+            }
+            #prison-gif {
+                max-height: 250px;
+            }
+        }
+        @media (max-width: 480px) {
+            #main-title {
+                font-size: 2em;
+                margin-bottom: 5px;
+                margin-top:10px;
+            }
+            #timer-sentence {
+                font-size: 0.9em;
+                line-height: 1.4;
+            }
+            .timer-values span {
+                padding: 3px 6px;
+                margin: 0 1px;
+            }
+            .content-wrapper {
+                padding: 15px;
+                border-width: 3px;
+            }
+            #prison-gif-container {
+                max-width: 100%;
+                min-height: 100px;
+                margin-bottom: 15px;
+            }
+            #prison-gif {
+                max-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content-wrapper">
+        <div id="prison-gif-container">
+            <img id="prison-gif" src="" alt="Börtön témájú GIF" onerror="handleGifError(this)">
+        </div>
+
+        <h1 id="main-title">Örülhettek</h1> <h1 id="main-title">Kiss Endre Farkas<br></h1>
+        <h1 id="timer-sentence" class="timer-values">
+ 
+            <span id="days">0</span> napja,
+            <span id="hours">0</span> órája,
+            <span id="minutes">0</span> perce
+            <span id="seconds">0</span> másodperce 
+        </h1>
+        <h1 id="main-title">nincs szabadlábon</h1>
+        
+    </div>
+
+    <script>
+
+        const userProvidedGifUrls = [
+            "01.gif",
+            "02.gif",
+            "03.gif",
+            "04.gif",
+            "05.gif",
+            "06.gif",
+            "07.gif",
+            "08.gif",
+            "09.gif",
+            "10.gif"
+        ];
+
+        const prisonGifUrls = userProvidedGifUrls;
+
+        const gifElement = document.getElementById('prison-gif');
+        const gifContainer = document.getElementById('prison-gif-container');
+
+        function handleGifError(imageElement) {
+            console.error('GIF hiba: A kép nem tölthető be az elérési útvonalról:', imageElement.src);
+            if (gifContainer) {
+                 // gifContainer.innerHTML = "<p style='color: #ffc107;'>A GIF betöltése sikertelen. </p>";
+            }
+            imageElement.style.display = 'none';
+        }
+
+        if (gifElement && gifContainer) {
+            console.log("GIF elem és konténer megtalálva.");
+            if (prisonGifUrls.length > 0) {
+                const randomIndex = Math.floor(Math.random() * prisonGifUrls.length);
+                const selectedGifUrl = prisonGifUrls[randomIndex];
+                gifElement.src = selectedGifUrl; 
+                console.log("Kiválasztott és beállított helyi GIF:", selectedGifUrl);
+                gifElement.style.display = 'block';
+            } else {
+                
+                console.warn("Nincsenek GIF elérési útvonalak megadva a 'prisonGifUrls' tömbben.");
+                if (gifContainer) {
+                    gifContainer.innerHTML = "<p style='color: #ffc107;'>Nincsenek megjeleníthető GIF-ek. Ellenőrizd a fájlneveket a kódban!</p>";
+                    gifContainer.style.alignItems = 'center';
+                    gifContainer.style.justifyContent = 'center';
+                }
+            }
+        } else {
+            console.error("Hiba: A 'prison-gif' ID-jú kép elem vagy a 'prison-gif-container' nem található a DOM-ban.");
+        }
+
+   
+        const targetDate = new Date(2025, 4, 7, 15, 0, 0).getTime();
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = now - targetDate;
+
+            if (difference < 0) {
+                daysEl.textContent = "0";
+                hoursEl.textContent = "0";
+                minutesEl.textContent = "0";
+                secondsEl.textContent = "0";
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            daysEl.textContent = days;
+            hoursEl.textContent = hours;
+            minutesEl.textContent = minutes;
+            secondsEl.textContent = seconds;
+        }
+
+        const timerInterval = setInterval(updateCountdown, 1000);
+        updateCountdown(); 
+    </script>
+
+</body>
+</html>
