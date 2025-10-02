@@ -142,7 +142,7 @@
             <img id="prison-gif" src="" alt="Börtön témájú GIF" onerror="handleGifError(this)">
         </div>
 
-        <h1 id="main-title">Örülhettek</h1> <h1 id="main-title">Kiss Endre Farkas<br></h1>
+        <h1 id="main-title">Örülhettek, </h1> <h1 id="main-title">Kiss Endre Farkas, bűnöző<br></h1>
         <h1 id="timer-sentence" class="timer-values">
  
             <span id="days">0</span> napja,
@@ -150,7 +150,7 @@
             <span id="minutes">0</span> perce
             <span id="seconds">0</span> másodperce 
         </h1>
-        <h1 id="main-title">nincs szabadlábon</h1>
+        <h1 id="main-title">kibaszottul nincs szabadlábon</h1>
         
     </div>
 
@@ -204,7 +204,7 @@
         }
 
    
-        const targetDate = new Date(2025, 4, 7, 15, 0, 0).getTime();
+        const myDate = new Date(2025, 4, 7, 15, 0, 0).getTime();
         const daysEl = document.getElementById('days');
         const hoursEl = document.getElementById('hours');
         const minutesEl = document.getElementById('minutes');
@@ -212,7 +212,7 @@
 
         function updateCountdown() {
             const now = new Date().getTime();
-            const difference = now - targetDate;
+            const difference = now - myDate;
 
             if (difference < 0) {
                 daysEl.textContent = "0";
@@ -239,3 +239,4 @@
 
 </body>
 </html>
+
